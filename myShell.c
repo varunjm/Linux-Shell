@@ -118,17 +118,17 @@ void execute(Pipe p)
         closePipes();
         free(fds);
 
-        if (wait(NULL) == -1 && errno != ECHILD) {
-            perror("Error in wait");
-            exit(1);
-        }
-
+        for (i = 0; i <= pipeLength ; i++)
+        {
+            if (wait(NULL) == -1 && errno != ECHILD) {
+                perror("Error in wait");
+                exit(1);
+            }
+        } 
+          
     }
-    if (wait(NULL) == -1 && errno != ECHILD) {
-            perror("Error in wait");
-            exit(1);
-        }
     // execute(p->next);
+    
 }
 
 int main(int argc, char *argv[])
