@@ -83,45 +83,9 @@ void execvpCMD(char *const cmd[], int choice)
 
         case USTENV:
         {
-            int params=0;
-            while(cmd[params++]);
-            
-            if(params == 3)
-            {
-                int count=0, pos = -1;
-                char *temp;
-
-                while(environ[count])
-                {
-                    temp = split(environ[count]);
-                    if(!temp) 
-                    {
-                        count++;
-                        continue;
-                    }
-                    if(!strcmp(temp,cmd[1]))
-                        pos = count;
-                    count++;
-                }
-                if(pos != -1)
-                {
-                    if(pos==count-1)
-                    {
-                        free(environ[pos]);
-                        environ[pos] = NULL;
-                    }
-                    else
-                    {
-                        free(environ[pos]);
-                        environ[pos] = environ[count-1];
-                        environ[count-1] = NULL;
-                    }
-                }
-            }
-            else
-            {
-                printf("Missing parameter!\n");
-            }
+            int params=1;
+            if(cmd[params] == NULL)  printf("unsetenv: Too few arguments.\n");
+            else while(cmd[params])  putenv(cmd[params++]);
             break;
         }
         case ECHO:
